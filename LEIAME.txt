@@ -1,0 +1,241 @@
+
+# Sistema Web de Agendamento
+
+## 1. Descrição do projeto
+
+O Sistema Web de Agendamento é uma aplicação desenvolvida
+como parte de um Projeto Integrador acadêmico, com o objetivo
+de facilitar o cadastro, a consulta e o gerenciamento de
+agendamentos.
+
+A aplicação possui uma interface administrativa desenvolvida
+em HTML e CSS, integrada a um back-end em Python com Flask
+e a um banco de dados relacional MySQL.
+
+O sistema permite realizar operações de cadastro, consulta,
+atualização e exclusão de registros (CRUD), além de gerenciar
+o status dos agendamentos.
+
+## 2. Objetivos
+
+- Desenvolver uma aplicação web funcional.
+- Aplicar conceitos de programação back-end com Python.
+- Integrar uma aplicação Flask a um banco de dados MySQL.
+- Implementar operações CRUD.
+- Validar dados e evitar conflitos de horários.
+- Disponibilizar uma interface administrativa intuitiva.
+- Apresentar indicadores gerenciais em um Dashboard.
+
+## 3. Tecnologias utilizadas
+
+- Python 3.13
+- Flask
+- HTML5
+- CSS3
+- MySQL
+- MySQL Connector/Python
+- Visual Studio Code
+- MySQL Workbench
+
+A interface utiliza templates Jinja2, integrados ao Flask.
+
+## 4. Funcionalidades
+
+### Dashboard
+
+- Visualização do total de agendamentos.
+- Quantidade de agendamentos do dia.
+- Quantidade de agendamentos confirmados.
+- Quantidade de agendamentos pendentes.
+- Resumo dos agendamentos cancelados.
+- Listagem dos próximos dez agendamentos ativos.
+
+### Cadastro de agendamentos
+
+- Registro do nome do cliente.
+- Registro do telefone.
+- Identificação do serviço.
+- Seleção de data e horário.
+- Inclusão de observações.
+- Validação dos campos obrigatórios.
+- Bloqueio de datas anteriores à data atual.
+- Verificação de conflitos de horários.
+
+### Consulta e gerenciamento
+
+- Listagem dos agendamentos cadastrados.
+- Edição das informações existentes.
+- Alteração de datas e horários.
+- Confirmação de agendamentos.
+- Cancelamento com preservação do registro.
+- Exclusão definitiva mediante confirmação.
+
+## 5. Estrutura do projeto
+
+sis_agendamento/
+|
+|-- app.py
+|-- conexao.py
+|-- requirements.txt
+|-- README.md
+|
+|-- static/
+|   |-- style.css
+|
+|-- templates/
+|   |-- base.html
+|   |-- index.html
+|   |-- cadastro.html
+|   |-- agendamentos.html
+|   |-- editar.html
+|   |-- excluir.html
+|
+|-- venv/ (ambiente virtual local)
+
+## 6. Banco de dados
+
+O sistema utiliza o MySQL para armazenar os agendamentos.
+
+Nome do banco de dados:
+
+sistema_agendamento
+
+Tabela principal:
+
+agendamentos
+
+Campos utilizados:
+
+- id: identificador único.
+- nome_cliente: nome do cliente.
+- telefone: telefone para contato.
+- servico: serviço solicitado.
+- data_agendamento: data do atendimento.
+- horario: horário do atendimento.
+- observacoes: informações adicionais.
+- status: situação do agendamento.
+
+Os status disponíveis são:
+
+- Pendente
+- Confirmado
+- Cancelado
+
+## 7. Requisitos para execução
+
+Para executar o projeto, é necessário possuir:
+
+- Python 3.13 ou versão compatível.
+- MySQL Server instalado e em execução.
+- Banco de dados configurado.
+- Dependências Python instaladas.
+
+## 8. Instalação e execução
+
+### Passo 1 - Abrir o projeto
+
+Abra a pasta sis_agendamento no Visual Studio Code.
+
+### Passo 2 - Criar o ambiente virtual
+
+No terminal, execute:
+
+    py -m venv venv
+
+### Passo 3 - Ativar o ambiente virtual
+
+No PowerShell:
+
+    .\venv\Scripts\Activate.ps1
+
+### Passo 4 - Instalar as dependências
+
+    py -m pip install -r requirements.txt
+
+### Passo 5 - Criar o banco de dados
+
+No MySQL Workbench, execute:
+
+    CREATE DATABASE IF NOT EXISTS sistema_agendamento
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+    USE sistema_agendamento;
+
+    CREATE TABLE IF NOT EXISTS agendamentos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nome_cliente VARCHAR(100) NOT NULL,
+        telefone VARCHAR(20) NOT NULL,
+        servico VARCHAR(100) NOT NULL,
+        data_agendamento DATE NOT NULL,
+        horario TIME NOT NULL,
+        observacoes TEXT,
+        status VARCHAR(20) NOT NULL DEFAULT 'Pendente'
+    );
+
+### Passo 6 - Configurar a conexão
+
+Abra o arquivo conexao.py.
+
+Configure os parâmetros de conexão com o MySQL:
+
+- host
+- user
+- password
+- database
+
+Utilize as credenciais correspondentes ao servidor local.
+
+### Passo 7 - Executar a aplicação
+
+No terminal, execute:
+
+    py app.py
+
+### Passo 8 - Acessar o sistema
+
+Abra o navegador e acesse:
+
+http://127.0.0.1:5000
+
+## 9. Regras de negócio
+
+O sistema aplica as seguintes regras:
+
+1. Os campos obrigatórios devem ser preenchidos.
+2. Não é permitido cadastrar agendamentos em datas passadas.
+3. Agendamentos pendentes ou confirmados não podem
+   ocupar o mesmo horário na mesma data.
+4. Agendamentos cancelados permanecem armazenados.
+5. Um horário cancelado pode ser utilizado novamente.
+6. A exclusão remove permanentemente o registro.
+7. Os indicadores do Dashboard são atualizados a partir
+   das informações armazenadas no banco de dados.
+
+## 10. Arquitetura da aplicação
+
+A aplicação utiliza uma arquitetura web baseada
+no padrão cliente-servidor.
+
+O navegador apresenta a interface HTML e CSS.
+
+O Flask recebe as requisições HTTP, executa as regras
+de negócio e realiza consultas ao banco MySQL.
+
+Os resultados são enviados aos templates Jinja2,
+responsáveis pela apresentação dinâmica das informações.
+
+## 11. Considerações finais
+
+O desenvolvimento do Sistema Web de Agendamento permitiu
+aplicar conhecimentos de programação web, manipulação de
+dados, integração com banco de dados e implementação de
+operações CRUD.
+
+O projeto demonstra a utilização conjunta de tecnologias
+de front-end e back-end na construção de uma aplicação
+funcional, organizada e orientada ao gerenciamento de
+informações.
+
+O sistema foi desenvolvido para fins acadêmicos e
+executado em ambiente local.

@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+
+{% block title %}Novo Agendamento{% endblock %}
+
+{% block content %}
+
+<div class="welcome">
+    <div>
+        <h1>Novo agendamento</h1>
+        <p>Preencha os dados para registrar um horário.</p>
+    </div>
+    <a href="/" class="btn-secondary">Voltar</a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="/cadastro">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Nome do cliente *</label>
+                <input type="text" name="nome_cliente" required>
+            </div>
+
+            <div class="form-group">
+                <label>Telefone *</label>
+                <input type="tel" name="telefone" required>
+            </div>
+
+            <div class="form-group">
+                <label>Serviço *</label>
+                <input type="text" name="servico" required>
+            </div>
+
+            <div class="form-group">
+                <label>Data *</label>
+                <input type="date" name="data_agendamento"
+                       min="{{ hoje }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Horário *</label>
+                <input type="time" name="horario" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label>Observações</label>
+                <textarea name="observacoes" rows="4"></textarea>
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+            <a href="/" class="btn-secondary">Cancelar</a>
+            <button type="submit" class="btn-primary">
+                Salvar agendamento
+            </button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
+

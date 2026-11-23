@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Sistema de Agendamento{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>Agenda</h2>
+                <p>Sistema de Agendamento</p>
+            </div>
+
+            
+<nav class="sidebar-nav">
+
+    <a href="{{ url_for('inicio') }}" class="nav-link">
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('cadastro') }}" class="nav-link">
+        Novo agendamento
+    </a>
+
+    <a href="{{ url_for('listar_agendamentos') }}" class="nav-link">
+        Todos os agendamentos
+    </a>
+
+</nav>
+
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Sistema de Agendamento</p>
+                <small>Projeto Integrador</small>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+
+            <!-- BARRA SUPERIOR -->
+            <header class="topbar">
+
+                <div class="topbar-title">
+                    <span>Painel Administrativo</span>
+                </div>
+
+                <div class="topbar-user">
+                    <span>Administrador</span>
+                </div>
+
+            </header>
+
+            <!-- CONTEÚDO DAS PÁGINAS -->
+            <section class="page-content">
+
+                <!-- MENSAGENS DO FLASK -->
+                {% with mensagens = get_flashed_messages(with_categories=true) %}
+
+                    {% for categoria, mensagem in mensagens %}
+
+                        <div class="alert {{ categoria }}">
+                            {{ mensagem }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endwith %}
+
+                <!-- CONTEÚDO DINÂMICO -->
+                {% block content %}{% endblock %}
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+
+{% extends "base.html" %}
+
+{% block title %}Excluir Agendamento{% endblock %}
+
+{% block content %}
+
+<div class="welcome">
+    <div>
+        <h1>Excluir agendamento</h1>
+        <p>Confirme a exclusão do registro selecionado.</p>
+    </div>
+
+    <a href="{{ url_for('listar_agendamentos') }}"
+       class="btn-secondary">
+        Voltar
+    </a>
+</div>
+
+<div class="delete-container">
+
+    <h2>Tem certeza de que deseja excluir este agendamento?</h2>
+
+    <p class="delete-warning">
+        Esta operação é permanente e não poderá ser desfeita.
+    </p>
+
+    <div class="delete-details">
+
+        <p>
+            <strong>ID:</strong>
+            {{ agendamento.id }}
+        </p>
+
+        <p>
+            <strong>Cliente:</strong>
+            {{ agendamento.nome_cliente }}
+        </p>
+
+        <p>
+            <strong>Telefone:</strong>
+            {{ agendamento.telefone }}
+        </p>
+
+        <p>
+            <strong>Serviço:</strong>
+            {{ agendamento.servico }}
+        </p>
+
+        <p>
+            <strong>Data:</strong>
+            {{ agendamento.data_agendamento.strftime('%d/%m/%Y') }}
+        </p>
+
+        <p>
+            <strong>Horário:</strong>
+            {{ agendamento.horario }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            {{ agendamento.status }}
+        </p>
+
+    </div>
+
+    <form method="POST"
+          action="{{ url_for('excluir_agendamento', id=agendamento.id) }}">
+
+        <div class="form-actions">
+
+            <a href="{{ url_for('listar_agendamentos') }}"
+               class="btn-secondary">
+                Cancelar
+            </a>
+
+            <button type="submit" class="btn-delete">
+                Excluir definitivamente
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

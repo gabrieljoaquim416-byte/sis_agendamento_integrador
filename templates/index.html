@@ -1,0 +1,124 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Sistema de Agendamento{% endblock %}
+
+{% block content %}
+
+<!-- CABEÇALHO -->
+<div class="welcome">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Visão geral dos agendamentos do sistema.</p>
+    </div>
+
+    <a href="{{ url_for('cadastro') }}" class="btn-primary">
+        + Novo agendamento
+    </a>
+</div>
+
+<!-- INDICADORES -->
+<div class="dashboard-cards">
+
+    <div class="card">
+        <p>Total de agendamentos</p>
+        <h2>{{ total }}</h2>
+        <span>Registros cadastrados</span>
+    </div>
+
+    <div class="card">
+        <p>Agendamentos de hoje</p>
+        <h2>{{ agendamentos_hoje }}</h2>
+        <span>Atendimentos ativos do dia</span>
+    </div>
+
+    <div class="card">
+        <p>Confirmados</p>
+        <h2>{{ confirmados }}</h2>
+        <span>Agendamentos confirmados</span>
+    </div>
+
+    <div class="card">
+        <p>Pendentes</p>
+        <h2>{{ pendentes }}</h2>
+        <span>Aguardando confirmação</span>
+    </div>
+
+</div>
+
+<!-- RESUMO DE CANCELAMENTOS -->
+<div class="dashboard-summary">
+    <div>
+        <h3>Agendamentos cancelados</h3>
+        <p>Quantidade de registros com status cancelado.</p>
+    </div>
+
+    <span class="cancelled-count">{{ cancelados }}</span>
+</div>
+
+<!-- PRÓXIMOS AGENDAMENTOS -->
+<div class="table-container">
+
+    <div class="table-header">
+        <div>
+            <h3>Próximos agendamentos</h3>
+            <p>Os próximos 10 atendimentos pendentes ou confirmados.</p>
+        </div>
+
+        <a href="{{ url_for('listar_agendamentos') }}"
+           class="btn-secondary">
+            Ver todos
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Serviço</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for agendamento in agendamentos %}
+
+                <tr>
+                    <td>{{ agendamento.nome_cliente }}</td>
+
+                    <td>{{ agendamento.servico }}</td>
+
+                    <td>
+                        {{ agendamento.data_agendamento.strftime('%d/%m/%Y') }}
+                    </td>
+
+                    <td>{{ agendamento.horario }}</td>
+
+                    <td>
+                        <span class="status {{ agendamento.status|lower }}">
+                            {{ agendamento.status }}
+                        </span>
+                    </td>
+                </tr>
+
+                {% else %}
+
+                <tr>
+                    <td colspan="5" class="empty-message">
+                        Nenhum agendamento futuro encontrado.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
