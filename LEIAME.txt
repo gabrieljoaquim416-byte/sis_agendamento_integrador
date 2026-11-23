@@ -239,3 +239,5 @@ informações.
 
 O sistema foi desenvolvido para fins acadêmicos e
 executado em ambiente local.
+
+att: Antes de executar o sistema, renomeie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente com suas credenciais locais de acesso ao MySQL. O arquivo `.env` contém informações confidenciais e não deve ser enviado ao GitHub.
